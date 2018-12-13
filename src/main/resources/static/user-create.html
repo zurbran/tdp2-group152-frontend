@@ -1,10 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Combis LP - Crear Usuario</title>
+
+    <link href="/webjars/bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet">
+    <script src="/webjars/jquery/3.3.1/jquery.js"></script>
+
+    <link href="css/user-create.css" rel="stylesheet">
+
 </head>
+
+<script src="js/createuser.js"> </script>
+
 <body>
-$END$
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-12">
+            <form id="signup">
+                <h2> Registrese <small> para poder reservar pasajes en la plataforma.</small></h2>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="first_name" id="first_name" class="form-control input-lg" placeholder="Nombre" tabindex="1">
+                        </div>
+                    </div>
+                    <div class="alert alert-danger col-xs-12 col-sm-6 col-md-6" id="alertname" role="alert" style="display:none;">
+                        Nombre Inválido
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="last_name" id="last_name" class="form-control input-lg" placeholder="Apellido" tabindex="2">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 alert alert-danger" id="alertlastname" role="alert" style="display:none;">
+                        Apellido Inválido
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                        <input type="email" name="emailbox" id="emailbox" class="form-control input-lg" placeholder="Email" tabindex="4">
+                    </div>
+                    <div class="alert alert-danger col-xs-12 col-sm-6 col-md-6" id="alertemail" role="alert" style="display:none;">
+                        Email Inválido
+                    </div>
+                    <div class="alert alert-danger col-xs-12 col-sm-6 col-md-6" style="display:none;" id="alertemail2" role="alert">
+                        El email ya existe.
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Contraseña" tabindex="5">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirmar Contraseña" tabindex="6">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger col-xs-24 col-sm-12 col-md-12" id="alertpass" role="alert" style="display:none;">
+                            Contraseña inválida.
+                        </div>
+                    </div>
+                </div>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <input type="submit" id="submitbtn" class="btn btn-primary btn-block" onclick="validate()" value="Registrar" tabindex="7">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
+<script src="/webjars/bootstrap/4.1.3/js/bootstrap.js"></script>
 </html>

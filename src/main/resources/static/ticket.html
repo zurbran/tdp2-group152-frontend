@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emision de Ticket</title>
+</head>
+<body>
+<script src="/webjars/jquery/3.3.1/jquery.js"></script>
+
+<script type="text/javascript" src="js/jquery.qrcode.js"></script>
+<script type="text/javascript" src="js/qrcode.js"></script>
+
+<p id="Usuario"></p>
+<p id="Desde"></p>
+<p id="Hacia"></p>
+<p id="Calle"></p>
+<p id="Fecha"></p>
+<p id="Hora"></p>
+
+<p>Codigo QR:</p>
+<div id="qrcodeCanvas"></div>
+<script>
+	// var txt = '{"from": "La Plata","to": "Buenos Aires", "stop": {"stopId": 18, "street": "Av 7", "streetNumber": "1100", "city": "La Plata"},"ticketId": 15,"time": "11:43:04","date": "2018-12-15","journeyId": 23}';
+	// var obj = JSON.parse(txt);
+
+	$('#nombre').html('Usuario: ')
+	$('#desde').html('Desde: '+obj.from)
+	$('#hacia').html('Hasta: '+obj.to)
+	$('#calle').html('Parada: '+obj.stop.street+' Nro '+obj.stop.streetNumber)
+	$('#fecha').html('Fecha: '+obj.date)
+	$('#hora').html('Hora: '+obj.time)
+	$('#qrcodeCanvas').qrcode({
+		text	: '{"tickedId":'+obj.ticketId+'"journeyId":'+obj.journeyId+'}'
+	});	
+</script>
+
+<p>Gracias por operar con nosotros!</p>
+
+</body>
+</html>
