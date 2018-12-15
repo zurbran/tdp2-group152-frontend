@@ -18,7 +18,8 @@ function search(event) {
         headers: {}
     }).done(function (data) {
         availabilityData = data;
-        var s = $("<select id=\"journeys\" onchange=\"showStops(event)\" name=\"journeys\" class=\"form-control\" size=\"" + data.journeysDTO.length + "\"/>");
+        var s = $("<select id=\"journeys\" onchange=\"showStops(event)\" name=\"journeys\" class=\"form-control\" size=\"" + (data.journeysDTO.length + 1) + "\"/>");
+        $("<option />", {value: data.journeysDTO.length++, text: "Seleccione un viaje "}).appendTo(s);
         data.journeysDTO.forEach(function (journey, i) {
             $("<option />", {value: i++, text: "Horario: " + journey.time}).appendTo(s);
         })
@@ -40,6 +41,10 @@ function showStops(event) {
     stopsel.name = "stops";
     stopsel.classList.add("form-control");
     stopsel.size = availabilityData.journeysDTO[$('#journeys').val()].stops.length;
+    var footer = document.createElement('option');
+    footer.value = stopsel.size++;
+    footer.text = "Seleccione una parada";
+    stopsel.appendChild(footer);
     availabilityData.journeysDTO[$('#journeys').val()].stops.forEach(function (stop) {
         var opt = document.createElement('option');
         opt.value = stop.stopId;
@@ -57,8 +62,8 @@ function reservate(event) {
         type: 'POST',
         data: {},
         headers: {
-            'passengerId': passengerId,
-            'authToken': authToken
+            'passengerId': docCookies.getItem("__sessionId"),
+            'authToken': docCookies.getItem("__authToken")
         }
     }).done(function (data) {
         reservationData = data;

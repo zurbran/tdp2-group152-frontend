@@ -4,10 +4,11 @@ function hideElementsAndLoadSession() {
     $('#feedback').hide();
     $('#user').hide();
     $('#logout').hide();
-    if ($.cookie("__sessionId") && $.cookie("__sessionToken")) {
+    if (docCookies.hasItem("__sessionId")&&docCookies.hasItem("__authToken")) {
         $('#feedback').hide();
         $('#login-dropdown').toggle();
-        $('#user').val($('#user').val() + $.cookie("email"));
+        $('#user').text('Sesion iniciada, usuario: ' + docCookies.getItem("__email"));
+        document.getElementById("user").style.color = "#fff";
         $('#user').show();
         $('#logout').show();
     }
@@ -26,14 +27,13 @@ function login(event) {
             'password': signinObject.password
         }
     }).done(function (data) {
-        passengerId = data.passengerId;
-        authToken = data.authToken;
-        $.cookie('__sessionId', data.passengerId, { path: '/', domain: window.location.hostname });
-        $.cookie('__authToken', data.authToken, { path: '/', domain: window.location.hostname });
-        $.cookie('__email', data.email, { path: '/', domain: window.location.hostname });
+        docCookies.setItem('__sessionId', data.passengerId, Infinity,'/');
+        docCookies.setItem('__authToken', data.authToken, Infinity, '/');
+        docCookies.setItem('__email', data.email, Infinity, '/');
         $('#feedback').hide();
-        $('#login-dropdown').toggle();
-        $('#user').val($('#user').val() + signinObject.email);
+        $('#login-dropdown').hide();
+        $('#user').text('Sesion iniciada, usuario: ' + signinObject.email);
+        document.getElementById("user").style.color = "#fff";
         $('#user').show();
         $('#logout').show();
         $('#logform').toggle();
@@ -47,11 +47,12 @@ function logout(event) {
     event.preventDefault();
     $('#user').hide();
     $('#user').val("Sesion iniciada, usuario:");
-    $('#login-dropdown').toggle();
-    if ($.cookie("__sessionId") && $.cookie("__sessionToken") && $.cookie("email")) {
-        $.removeCookie("__sessionId");
-        $.removeCookie("__sessionToken");
-        $.removeCookie("email");
+    $('#login-dropdown').show();
+    $('#logform').show();
+    if (docCookies.hasItem("__sessionId") && docCookies.hasItem("__authToken") && docCookies.hasItem("__email")) {
+        docCookies.removeItem("__sessionId",'/');
+        docCookies.removeItem("__authToken",'/');
+        docCookies.removeItem("__email",'/');
     }
     $('#logout').hide();
 }
