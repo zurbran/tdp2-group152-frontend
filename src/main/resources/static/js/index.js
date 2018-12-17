@@ -21,7 +21,7 @@ function search(event) {
         var s = $("<select id=\"journeys\" onchange=\"showStops(event)\" name=\"journeys\" class=\"form-control\" size=\"" + (data.journeysDTO.length + 1) + "\"/>");
         $("<option />", {selected: "true", disabled: "disabled", value: data.journeysDTO.length++, text: "Seleccione un viaje "}).appendTo(s);
         data.journeysDTO.forEach(function (journey, i) {
-            $("<option />", {value: i++, text: "Horario: " + journey.time}).appendTo(s);
+            $("<option />", {value: i++, text: "Horario: " + journey.time + "hs"}).appendTo(s);
         })
         $('#journeyslist').append(s);
     }).fail(function () {
@@ -50,7 +50,7 @@ function showStops(event) {
     availabilityData.journeysDTO[$('#journeys').val()].stops.forEach(function (stop) {
         var opt = document.createElement('option');
         opt.value = stop.stopId;
-        opt.text = "Parada: " + stop.street + " Nro: " + stop.streetNumber;
+        opt.text = "Parada: " + stop.street + " Nro: " + stop.streetNumber + " a las " + stop.pickUpTime + "hs";
         stopsel.appendChild(opt);
     });
     document.getElementById("stopslists").appendChild(stopsel);

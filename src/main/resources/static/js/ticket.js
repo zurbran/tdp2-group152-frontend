@@ -7,8 +7,8 @@ function getInfo() {
         type: 'GET',
         data: {},
         headers: {
-//            'passengerId': docCookies.getItem("__sessionId"),
-//            'authToken': docCookies.getItem("__authToken")
+           'passengerId': docCookies.getItem("__sessionId"),
+           'authToken': docCookies.getItem("__authToken")
         }
     }).done(function (data) {
         $('#nombre').html('Usuario: '+data.user.name)
@@ -17,7 +17,7 @@ function getInfo() {
         $('#hacia').html('Hasta: '+data.journeyData.destiny)
         $('#calle').html('Parada: '+data.journeyData.address.street+' Nro '+data.journeyData.address.streetNumber)
         $('#fecha').html('Fecha: '+data.journeyData.date)
-        $('#hora').html('Hora: ')
+        $('#hora').html('Hora: ' +data.journeyData.time);
         $('#qrcodeCanvas').qrcode({
             text	: '{"tickedId":'+urlParam+'"journeyId":'+data.journeyData.id+'}'
         });
