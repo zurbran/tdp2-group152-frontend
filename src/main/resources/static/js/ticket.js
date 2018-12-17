@@ -19,7 +19,7 @@ function getInfo() {
         $('#fecha').html('Fecha: '+data.journeyData.date)
         $('#hora').html('Hora: ' +data.journeyData.time);
         $('#qrcodeCanvas').qrcode({
-            text	: '{"tickedId":'+urlParam+',"journeyId":'+data.journeyData.id+'}'
+            text	: '{"ticketId":'+urlParam+',"journeyId":'+data.journeyData.id+'}'
         });
     }).fail(function () {
         $('#feedback').show();
