@@ -1,7 +1,5 @@
 var availabilityData;
 var reservationData;
-var authToken;
-var passengerId;
 
 $('document').ready(function () {
     $("#navbar").load("navbar.html", function () {
@@ -18,8 +16,10 @@ function search(event) {
         headers: {}
     }).done(function (data) {
         availabilityData = data;
+        $('#journeyslist').empty();
+        $('#stopslists').empty();
         var s = $("<select id=\"journeys\" onchange=\"showStops(event)\" name=\"journeys\" class=\"form-control\" size=\"" + (data.journeysDTO.length + 1) + "\"/>");
-        $("<option />", {value: data.journeysDTO.length++, text: "Seleccione un viaje "}).appendTo(s);
+        $("<option />", {selected: "true", disabled: "disabled", value: data.journeysDTO.length++, text: "Seleccione un viaje "}).appendTo(s);
         data.journeysDTO.forEach(function (journey, i) {
             $("<option />", {value: i++, text: "Horario: " + journey.time}).appendTo(s);
         })
@@ -42,13 +42,15 @@ function showStops(event) {
     stopsel.classList.add("form-control");
     stopsel.size = availabilityData.journeysDTO[$('#journeys').val()].stops.length;
     var footer = document.createElement('option');
+    footer.selected = "true";
+    footer.disabled = "disabled";
     footer.value = stopsel.size++;
     footer.text = "Seleccione una parada";
     stopsel.appendChild(footer);
     availabilityData.journeysDTO[$('#journeys').val()].stops.forEach(function (stop) {
         var opt = document.createElement('option');
         opt.value = stop.stopId;
-        opt.text = "Parada: " + stop.street + stop.streetNumber;
+        opt.text = "Parada: " + stop.street + " Nro: " + stop.streetNumber;
         stopsel.appendChild(opt);
     });
     document.getElementById("stopslists").appendChild(stopsel);
@@ -67,7 +69,7 @@ function reservate(event) {
         }
     }).done(function (data) {
         reservationData = data;
-        var win = window.open('//' + window.location.hostname + ":8080/ticket.html", '_blank');
+        var win = window.open('//' + window.location.hostname + ":8080/ticket.html?ticket=" + reservationData.ticketId, '_blank');
         if (win) {
             win.focus();
         } else {
