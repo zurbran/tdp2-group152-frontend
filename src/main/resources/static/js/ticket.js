@@ -11,15 +11,15 @@ function getInfo() {
            'authToken': docCookies.getItem("__authToken")
         }
     }).done(function (data) {
-        $('#nombre').html('Usuario: '+data.user.name)
-        $('#apellido').html('Usuario: '+data.user.lastName)
+        $('#nombre').html('Nombre: '+data.user.name)
+        $('#apellido').html('Apellido: '+data.user.lastName)
         $('#desde').html('Desde: '+data.journeyData.origin)
         $('#hacia').html('Hasta: '+data.journeyData.destiny)
         $('#calle').html('Parada: '+data.journeyData.address.street+' Nro '+data.journeyData.address.streetNumber)
         $('#fecha').html('Fecha: '+data.journeyData.date)
         $('#hora').html('Hora: ' +data.journeyData.time);
         $('#qrcodeCanvas').qrcode({
-            text	: '{"tickedId":'+urlParam+'"journeyId":'+data.journeyData.id+'}'
+            text	: '{"tickedId":'+urlParam+',"journeyId":'+data.journeyData.id+'}'
         });
     }).fail(function () {
         $('#feedback').show();
